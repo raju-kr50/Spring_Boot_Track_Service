@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/")
 public class TrackController {
@@ -29,5 +31,11 @@ public class TrackController {
     public ResponseEntity<?> getTrackById(@PathVariable("id") int id) {
         Track showTrack = trackService.getTrackById(id);
         return new ResponseEntity<Track>(showTrack,HttpStatus.OK);
+    }
+
+    @GetMapping("track")
+    public List<Track> getAllTracks() {
+        List<Track> showAllTracks = trackService.getAllTracks();
+        return showAllTracks;
     }
 }

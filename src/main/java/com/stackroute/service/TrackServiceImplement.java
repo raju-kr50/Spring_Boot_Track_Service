@@ -5,6 +5,8 @@ import com.stackroute.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TrackServiceImplement implements TrackService {
 
@@ -28,5 +30,10 @@ public class TrackServiceImplement implements TrackService {
         Track track =trackRepository.findById(id).get();
         System.out.println(track);
         return track;
+    }
+
+    @Override
+    public List<Track> getAllTracks() {
+        return trackRepository.findAll();
     }
 }
