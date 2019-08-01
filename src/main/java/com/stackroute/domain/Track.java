@@ -43,4 +43,13 @@ public class Track {
     public void setComments(String comments) {
         this.comments = comments;
     }
+
+    @Override
+    public String toString() {
+        return "Track{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", comments='" + comments + '\'' +
+                '}';
+    }
 }

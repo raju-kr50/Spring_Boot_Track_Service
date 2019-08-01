@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrackServiceImplement implements TrackService {
@@ -28,12 +29,18 @@ public class TrackServiceImplement implements TrackService {
     @Override
     public Track getTrackById(int id) {
         Track track =trackRepository.findById(id).get();
-        System.out.println(track);
         return track;
     }
 
     @Override
     public List<Track> getAllTracks() {
         return trackRepository.findAll();
+    }
+
+    @Override
+    public Track deleteTrackById(int id) {
+        Optional<Track> optionalTrack=trackRepository.findById(id);
+        trackRepository.deleteById(id);
+        return optionalTrack.get();
     }
 }

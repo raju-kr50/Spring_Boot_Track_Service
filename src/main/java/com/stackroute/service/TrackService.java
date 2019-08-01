@@ -12,4 +12,6 @@ public interface TrackService {
 
     public List<Track> getAllTracks();
 
+    public Track deleteTrackById(int id);
+
 }

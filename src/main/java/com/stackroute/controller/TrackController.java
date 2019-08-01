@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("api/v1")
 public class TrackController {
     private TrackService trackService;
 
@@ -37,5 +37,13 @@ public class TrackController {
     public List<Track> getAllTracks() {
         List<Track> showAllTracks = trackService.getAllTracks();
         return showAllTracks;
+    }
+
+    @DeleteMapping("track/{id}")
+    public ResponseEntity<?> deleteTrackById(@PathVariable int id) {
+        ResponseEntity responseEntity;
+        trackService.deleteTrackById(id);
+        responseEntity = new ResponseEntity("Deleted track successfully", HttpStatus.CREATED);
+        return responseEntity;
     }
 }
