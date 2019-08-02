@@ -14,4 +14,6 @@ public interface TrackService {
 
     public Track deleteTrackById(int id);
 
+    public Track updateTrackById(Track track, int id);
+
 }

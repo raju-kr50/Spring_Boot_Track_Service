@@ -28,7 +28,7 @@ public class TrackServiceImplement implements TrackService {
 
     @Override
     public Track getTrackById(int id) {
-        Track track =trackRepository.findById(id).get();
+        Track track = trackRepository.findById(id).get();
         return track;
     }
 
@@ -39,8 +39,16 @@ public class TrackServiceImplement implements TrackService {
 
     @Override
     public Track deleteTrackById(int id) {
-        Optional<Track> optionalTrack=trackRepository.findById(id);
+        Optional<Track> optionalTrack = trackRepository.findById(id);
         trackRepository.deleteById(id);
         return optionalTrack.get();
+    }
+
+    @Override
+    public Track updateTrackById(Track track, int id) {
+        Optional<Track> optionalTrack = trackRepository.findById(id);
+        trackRepository.deleteById(id);
+        return trackRepository.save(track);
+
     }
 }
