@@ -1,6 +1,8 @@
 package com.stackroute.controller;
 
 import com.stackroute.domain.Track;
+import com.stackroute.exceptions.TrackAlreadyExistsException;
+import com.stackroute.exceptions.TrackNotFoundException;
 import com.stackroute.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,31 +26,53 @@ public class TrackController {
     @PostMapping("track")
     public ResponseEntity<Track> saveTrack(@RequestBody Track track) {
         ResponseEntity responseEntity;
-        Track savedTrack = trackService.saveTrack(track);
-        responseEntity = new ResponseEntity<Track>(savedTrack, HttpStatus.CREATED);
+        try {
+            Track savedTrack =  trackService.saveTrack(track);
+            responseEntity = new ResponseEntity<Track>(savedTrack, HttpStatus.CREATED);
+        } catch (TrackAlreadyExistsException te) {
+            responseEntity = new ResponseEntity<String>(te.getMessage(), HttpStatus.CONFLICT);
+        }
         return responseEntity;
     }
 
     // Get mapping method to get a track by id
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrackById(@PathVariable("id") int id) {
-        Track showTrack = trackService.getTrackById(id);
-        return new ResponseEntity<Track>(showTrack, HttpStatus.OK);
+        ResponseEntity responseEntity;
+        try {
+            Track track= trackService.getTrackById(id);
+            responseEntity= new ResponseEntity<Track>(track, HttpStatus.OK);
+        } catch (TrackNotFoundException te) {
+            responseEntity = new ResponseEntity<String>(te.getMessage(),HttpStatus.CONFLICT);
+        }
+        return responseEntity;
     }
 
     // Get mapping method to retrieve all tracks
-    @GetMapping("track")
-    public List<Track> getAllTracks() {
-        List<Track> showAllTracks = trackService.getAllTracks();
-        return showAllTracks;
+    @GetMapping("tracks")
+    public ResponseEntity<?>getAllTracks() {
+        ResponseEntity responseEntity;
+        List<Track> showAllTracks;
+        try {
+            showAllTracks = trackService.getAllTracks();
+            responseEntity= new ResponseEntity<List<Track>>(showAllTracks,HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
     }
 
     // Delete mapping method to delete a track by id
     @DeleteMapping("track/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable int id) {
         ResponseEntity responseEntity;
-        trackService.deleteTrackById(id);
-        responseEntity = new ResponseEntity("Deleted track successfully", HttpStatus.CREATED);
+        try {
+            trackService.deleteTrackById(id);
+            responseEntity = new ResponseEntity("Deleted track successfully", HttpStatus.CREATED);
+        } catch (TrackNotFoundException te) {
+            responseEntity = new ResponseEntity(te.getMessage(), HttpStatus.OK);
+        }
+
         return responseEntity;
     }
 
@@ -62,7 +86,13 @@ public class TrackController {
     // Get mapping method to get track by name
     @GetMapping("tracks/{name}")
     public ResponseEntity<?> getTrackByName(@PathVariable("name") String name) {
-        List<Track> retrievedTrack = trackService.getTrackByName(name);
-        return new ResponseEntity<List<Track>>(retrievedTrack, HttpStatus.OK);
+        ResponseEntity responseEntity;
+        try {
+            List<Track> retrievedTrack = trackService.getTrackByName(name);
+            return new ResponseEntity<List<Track>>(retrievedTrack, HttpStatus.OK);
+        } catch (TrackNotFoundException te) {
+            responseEntity = new ResponseEntity<String>(te.getMessage(),HttpStatus.CONFLICT);
+        }
+        return responseEntity;
     }
 }
