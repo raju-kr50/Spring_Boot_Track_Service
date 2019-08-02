@@ -6,20 +6,25 @@ import javax.persistence.Id;
 
 @Entity
 public class Track {
+
+    // All the required variables declared
     @Id
     private int id;
     private String name;
     private String comments;
 
+    // No-arg constructor
     public Track() {
     }
 
+    //Parameterized constructor
     public Track(int id, String name, String comments) {
         this.id = id;
         this.name = name;
         this.comments = comments;
     }
 
+    // Getters and setters of the declared variables
     public int getId() {
         return id;
     }
@@ -44,6 +49,7 @@ public class Track {
         this.comments = comments;
     }
 
+    // to-string method
     @Override
     public String toString() {
         return "Track{" +

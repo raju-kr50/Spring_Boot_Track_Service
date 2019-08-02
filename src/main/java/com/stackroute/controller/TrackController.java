@@ -14,31 +14,36 @@ import java.util.List;
 public class TrackController {
     private TrackService trackService;
 
+    // Auto-wiring parameterized constructor
     @Autowired
     public TrackController(TrackService trackService) {
         this.trackService = trackService;
     }
 
+    // Post mapping method to save a track
     @PostMapping("track")
     public ResponseEntity<Track> saveTrack(@RequestBody Track track) {
         ResponseEntity responseEntity;
-        Track savedTrack=trackService.saveTrack(track);
-        responseEntity= new ResponseEntity<Track>(savedTrack, HttpStatus.CREATED);
+        Track savedTrack = trackService.saveTrack(track);
+        responseEntity = new ResponseEntity<Track>(savedTrack, HttpStatus.CREATED);
         return responseEntity;
     }
 
+    // Get mapping method to get a track by id
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrackById(@PathVariable("id") int id) {
         Track showTrack = trackService.getTrackById(id);
-        return new ResponseEntity<Track>(showTrack,HttpStatus.OK);
+        return new ResponseEntity<Track>(showTrack, HttpStatus.OK);
     }
 
+    // Get mapping method to retrieve all tracks
     @GetMapping("track")
     public List<Track> getAllTracks() {
         List<Track> showAllTracks = trackService.getAllTracks();
         return showAllTracks;
     }
 
+    // Delete mapping method to delete a track by id
     @DeleteMapping("track/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable int id) {
         ResponseEntity responseEntity;
@@ -47,6 +52,7 @@ public class TrackController {
         return responseEntity;
     }
 
+    // Patch mapping method to update a track by id
     @PatchMapping("track/{id}")
     public ResponseEntity<?> updateTrackById(@RequestBody Track track, @PathVariable("id") int id) {
         Track updatedTrack = trackService.updateTrackById(track, id);
