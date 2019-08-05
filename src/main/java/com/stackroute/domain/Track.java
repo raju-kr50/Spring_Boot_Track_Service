@@ -2,6 +2,7 @@ package com.stackroute.domain;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-@Component
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -21,6 +22,7 @@ public class Track {
     private int id;
     private String name;
     private String comments;
+
 
 //    // No-arg constructor
 //    public Track() {
