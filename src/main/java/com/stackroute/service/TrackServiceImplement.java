@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Primary
+//@Primary
 public class TrackServiceImplement implements TrackService {
 
     private TrackRepository trackRepository;

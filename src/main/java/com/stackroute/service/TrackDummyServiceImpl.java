@@ -4,10 +4,11 @@ import com.stackroute.domain.Track;
 import com.stackroute.exceptions.TrackAlreadyExistsException;
 import com.stackroute.exceptions.TrackNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Profile("dev")
 //This annotation defines a preference when multiple beans of the same type are present.
 // The bean associated with the @Primary annotation will be used unless otherwise indicated.
 //@Primary
