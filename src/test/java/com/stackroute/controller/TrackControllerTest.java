@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.domain.Track;
 import com.stackroute.exceptions.TrackAlreadyExistsException;
 import com.stackroute.service.TrackService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,13 +40,12 @@ public class TrackControllerTest {
     @InjectMocks
     private TrackController trackController;
 
-    private List<Track> list =null;
+    private List<Track> list = null;
 
     @Before
-    public void setUp(){
-
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
-      //  mockMvc = MockMvcBuilders.standaloneSetup(trackController).build();
+        //  mockMvc = MockMvcBuilders.standaloneSetup(trackController).build();
         track = new Track();
         track.setId(1);
         track.setName("Track-1");
@@ -53,6 +53,11 @@ public class TrackControllerTest {
         list = new ArrayList();
 
         list.add(track);
+    }
+
+    @After
+    public void tearDown() {
+        list = null;
     }
 
     @Test
@@ -86,12 +91,11 @@ public class TrackControllerTest {
     }
 
 
-    private static String asJsonString(final Object obj)
-    {
-        try{
+    private static String asJsonString(final Object obj) {
+        try {
             return new ObjectMapper().writeValueAsString(obj);
 
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
