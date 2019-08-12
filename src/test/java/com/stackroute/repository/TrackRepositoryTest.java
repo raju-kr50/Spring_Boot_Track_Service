@@ -64,4 +64,22 @@ public class TrackRepositoryTest {
         List<Track> list = trackRepository.findAll();
         Assert.assertEquals("Comment-3",list.get(8).getComments());
     }
+
+    @Test
+    public void givenTrackShouldUpdatePreviousTrack()
+    {
+        trackRepository.save(track);
+        trackRepository.deleteById(track.getId());
+        trackRepository.save(track);
+        Track updatedTrack=trackRepository.findById(track.getId()).get();
+        Assert.assertEquals(track,updatedTrack);
+    }
+
+    @Test
+    public void givenTrackIdShouldReturnDeletedTrack()
+    {
+        trackRepository.save(track);
+        trackRepository.deleteById(track.getId());
+        Assert.assertEquals(10,track.getId());
+    }
 }
