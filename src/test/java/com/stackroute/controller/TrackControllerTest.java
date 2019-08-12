@@ -90,6 +90,16 @@ public class TrackControllerTest {
 
     }
 
+    @Test
+    public void givenIdShouldReturnTheTrack() throws Exception {
+        when(trackService.getTrackById(track.getId())).thenReturn(track);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track/10")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
 
     private static String asJsonString(final Object obj) {
         try {
