@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.repository.Repository;
+//import org.springframework.data.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,6 @@ public class TrackServiceTest {
 
         when(trackRepository.save((Track) any())).thenReturn(track);
         Track savedTrack = trackService.saveTrack(track);
-//        System.out.println("savedTrack: " + savedTrack);
         Assert.assertEquals(track, savedTrack);
 
         //verify here verifies that trackRepository save method is only called once
@@ -106,7 +105,6 @@ public class TrackServiceTest {
     @Test
     public void givenTrackIdShouldReturnTrack() throws TrackNotFoundException {
         trackRepository.save(track);
-        //stubbing the mock to return specific data
         when(trackRepository.findById(10)).thenReturn(Optional.of(track));
         Optional<Track> getTrack = trackRepository.findById(10);
         Assert.assertEquals(track, getTrack.get());

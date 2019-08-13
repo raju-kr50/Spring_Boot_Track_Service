@@ -16,4 +16,5 @@ public class GlobalExceptionHandler  {
     public ResponseEntity<?> trackAlreadyExistsException(final TrackAlreadyExistsException te) {
         return new ResponseEntity<>(te.getMessage(), HttpStatus.OK);
     }
+
 }
